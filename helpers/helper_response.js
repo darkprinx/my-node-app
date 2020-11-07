@@ -1,14 +1,11 @@
-const responseBody = (statusCode, message, data={}) => {
-    if (statusCode!=200){
+const responseBody = (res, statusCode, message, data={}) => {
+    if(statusCode >= 500){
         console.log(data);
     }
-    return Object.assign(data, {
+    return res.status(statusCode).json(Object.assign({data: data}, {
         statusCode: statusCode,
         message: message
-    })
+    }));
 }
 
-const response200 = (data) => responseBody(200, "success", {data: data});
-const response404 = (data) => responseBody(404, "not found", {data: data});
-
-module.exports = { responseBody, response200, response404 };
+module.exports = { responseBody };

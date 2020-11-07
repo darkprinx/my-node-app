@@ -3,8 +3,7 @@ const express = require("express"),
       router = express.Router({mergeParams: true});
 
 
-// Routers
-
+// post/postId/
 router.route('/')
     .post(commentView.addCommentByPostId);
 

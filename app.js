@@ -15,9 +15,9 @@ app.use(bodyParser.json());
 app.use("/api", require("./routes/base"));
 
 // start server
-app.listen(3000, (error) => {
+app.listen(process.env.PORT, (error) => {
     if(!error){
-        console.log("server listening to 3000.");
+        console.log("server listening to " + process.env.PORT);
     }
 })
 

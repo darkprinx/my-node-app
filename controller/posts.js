@@ -1,4 +1,4 @@
-const { response200, response404 } = require("../helpers/helper_response");
+const { responseBody } = require("../helpers/helper_response");
 const Post = require("../models/post");
 
 
@@ -8,18 +8,18 @@ const Post = require("../models/post");
 const getPosts = async (req, res) => {
     try {
         const posts = await Post.find();
-        res.json(response200(posts));
+        return responseBody(res, 200, "Success", posts);
     } catch (error){
-        res.json(response404(error));
+        return responseBody(res, 404, "Posts not found", error.message)
     }
 }
 
 const createPost = async (req, res) => {
     try {
         const post = await Post(req.body).save();
-        res.json(response200(post));
+        return responseBody(res, 200, "Success", post);
     } catch (error) {
-        res.json(response404(error));
+        return responseBody(res, 500, "Failed", error.message);
     }
 }
 
@@ -27,18 +27,18 @@ const createPost = async (req, res) => {
 const getPostById = async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId);
-        res.json(response200(post));
+        return responseBody(res, 200, "Success", post);
     } catch (error){
-        res.json(response404(error));
+        return responseBody(res, 404, error.message);
     }
 }
 
 const deletePostById = async (req, res) => {
     try {
         const post = await Post.deleteOne({_id: req.params.postId });
-        res.json(response200(post));
+        return responseBody(res, 200, "Success", post);
     } catch (error){
-        res.json(response404(error));
+        return responseBody(res, 500, "Failed", error.message);
     }
 }
 

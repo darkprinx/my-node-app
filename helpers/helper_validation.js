@@ -1,5 +1,3 @@
-const Joi = require("@hapi/joi");
-
 
 const validateRequest = (data, schema) => {
     const { error } = schema.validate(data);
